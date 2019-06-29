@@ -1,2 +1,4 @@
-# particool
-A simple Castle tool for testing particles in LOVE2D
+# Particool
+A simple particle library for Love2D/Castle, which uses [Sugarcoat](https://github.com/TRASEVOL-DOG/sugarcoat).
+
+(Includes Castle tool for testing various particles effects)
