@@ -5,57 +5,67 @@ local ui = castle.ui
 function castle.uiupdate()
 
     ui.markdown([[
-## Lite Bikez
-Welcome to The Grid.
-
-The GOAL is... to survive!
+## Particool
+A test app for Love2D particle effects
 ]])
 
-ui.section("Controls", function()
+ui.button("Boom!", {onClick=function()
+    -- create _amount particles at a location
+    local xpos = irnd(GAME_WIDTH)
+    local ypos = irnd(GAME_HEIGHT)
+    for i=0,50 do
+        psystem:spawn(xpos, ypos, {1,2,3,4})
+        -- HAPPY ACCIDENT!!
+        --psystem:spawn(irnd(GAME_WIDTH), irnd(GAME_HEIGHT), {1,2,3})
+    end
+end})
 
-    ui.markdown([[
-### Player Controls
-**⬆⬇⬅➡** = *Turn Bike*
 
-**\[SPACE\]** = *Boost!*
+-- ui.section("Controls", function()
 
-### Advanced controls
-**S** = *Toggle GFX Shader*
-]])
+--     ui.markdown([[
+-- ### Player Controls
+-- **⬆⬇⬅➡** = *Turn Bike*
 
-end)
+-- **\[SPACE\]** = *Boost!*
 
-    -- Only if "host" of session 
-    -- (TODO: Allow subsequent hosts!)
+-- ### Advanced controls
+-- **S** = *Toggle GFX Shader*
+-- ]])
+
+-- end)
+
+--     -- Only if "host" of session 
+--     -- (TODO: Allow subsequent hosts!)
 
     
-        ui.markdown([[
-#### Current Level
-    ]])
+--         ui.markdown([[
+-- #### Current Level
+--     ]])
     
-    --ui.markdown('![]('..levelGfxPath..')')    
+--     --ui.markdown('![]('..levelGfxPath..')')    
 
-    ui.markdown([[
-#### Other Settings
-]])
+--     ui.markdown([[
+-- #### Other Settings
+-- ]])
 
-    ui.section("Shader settings", function()
+--     ui.section("Shader settings", function()
 
-        ui.toggle("Shader OFF", "Shader ON", useShader,
-        { onToggle = function()
-            useShader = not useShader
-            shader_switch(useShader)
-        end }
-        )
+--         ui.toggle("Shader OFF", "Shader ON", useShader,
+--         { onToggle = function()
+--             useShader = not useShader
+--             shader_switch(useShader)
+--         end }
+--         )
 
-        local refresh = false
-        shader_crt_curve      = ui.slider("CRT Curve",      shader_crt_curve,      0, 0.25, { step = 0.0025, onChange = function() refresh = true end })
-        shader_glow_strength  = ui.slider("Glow Strength",  shader_glow_strength,  0, 1,    { step = 0.01, onChange = function() refresh = true end })
-        shader_distortion_ray = ui.slider("Distortion Ray", shader_distortion_ray, 0, 10,   { step = 0.1, onChange = function() refresh = true end })
-        shader_scan_lines     = ui.slider("Scan Lines",     shader_scan_lines,     0, 1.0,  { step = 0.01, onChange = function() refresh = true end })
-        if refresh then update_shader_parameters() end
+--         local refresh = false
+--         shader_crt_curve      = ui.slider("CRT Curve",      shader_crt_curve,      0, 0.25, { step = 0.0025, onChange = function() refresh = true end })
+--         shader_glow_strength  = ui.slider("Glow Strength",  shader_glow_strength,  0, 1,    { step = 0.01, onChange = function() refresh = true end })
+--         shader_distortion_ray = ui.slider("Distortion Ray", shader_distortion_ray, 0, 10,   { step = 0.1, onChange = function() refresh = true end })
+--         shader_scan_lines     = ui.slider("Scan Lines",     shader_scan_lines,     0, 1.0,  { step = 0.01, onChange = function() refresh = true end })
+--         if refresh then update_shader_parameters() end
 
-    end)
+--     end)
 
 
 
