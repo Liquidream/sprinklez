@@ -11,14 +11,18 @@ local particles={}
 local game_width
 local game_height
 
-local function init(self, _width,_height)
+local function init(self, _width,_height, _x, _y, _cols, _count)
+
     self.game_width = _width
     self.game_height = _height
 
-    log("part game dimensions: "..self.game_width..","..self.game_width)
+    self.xpos = _x or self.game_width/2
+    self.ypos = _y or self.game_height/2
+    self.cols = _cols
+    self.count = _count or 1    -- emitter count
 end
 
-local function spawn(self, _x,_y,_cols)
+local function spawn(self, _x, _y)
     -- create a new particle
     local new={}
     
@@ -39,38 +43,43 @@ local function spawn(self, _x,_y,_cols)
     new.age=math.floor(math.random(25))--25
      
     -- give each particle it's own color life
-    new.cols = _cols
+    new.cols = self.cols
     
     --add the particle to the list
     table.insert(self.particles, new)
    end
    
    
-   function update(self, dt)
-    --iterate trough all particles
+function update(self, dt)
+    --update all particles
     for index, p in ipairs(self.particles) do
-     --delete old particles
-     --or if particle left 
-     --the screen     
-     if p.age > 75 
-      or p.y > self.game_height
-      or p.y < 0
-      or p.x > self.game_width
-      or p.x < 0
-      then
-      table.remove(particles,index)
-      
-     else
-      --move particle
-      p.x=p.x+p.dx * dt
-      p.y=p.y+p.dy * dt
-      --age particle
-      p.age=p.age+1
-     end
+        --delete old particles
+        --or if particle left 
+        --the screen     
+        if p.age > 75 
+        or p.y > self.game_height
+        or p.y < 0
+        or p.x > self.game_width
+        or p.x < 0
+        then
+        table.remove(particles,index)
+        
+        else
+        --move particle
+        p.x=p.x+p.dx * dt
+        p.y=p.y+p.dy * dt
+        --age particle
+        p.age=p.age+1
+        end
     end
-   end
+
+    -- create new ones
+    for i = 1, self.count do
+        self:spawn(self.xpos, self.ypos)
+    end
+end
    
-   function draw(self)
+function draw(self)
     --iterate trough all particles
     local col
     for index, p in ipairs(self.particles) do
@@ -83,7 +92,7 @@ local function spawn(self, _x,_y,_cols)
      --actually draw particle
      pset(p.x, p.y, col)
     end
-   end
+end
 
 
 return {

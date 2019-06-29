@@ -61,7 +61,7 @@ function love.load()
 	set_frame_waiting(60)
 	use_palette(ak54)
 
-	psystem:init(GAME_WIDTH, GAME_HEIGHT)
+	initParticool()
 
 	network.async(function()
         -- load drawing data
@@ -78,6 +78,11 @@ function love.load()
 	-- psystem:setColors(1, 1, 1, 1, 1, 1, 1, 0) -- Fade to transparency.
 
 	log("Demo initialized.")
+end
+
+
+function initParticool()
+    psystem:init(GAME_WIDTH, GAME_HEIGHT, xpos,ypos, {1,2,3}, 10)
 end
  
 function love.draw()
