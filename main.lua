@@ -84,18 +84,18 @@ end
 
 
 function initParticool()
-  particool:createSystem(GAME_WIDTH, GAME_HEIGHT, xpos,ypos, {1,2,3}, 10)
+  psystem = Particool:createSystem(GAME_WIDTH, GAME_HEIGHT, xpos,ypos, {1,2,3}, 10)
 end
  
 function love.draw()
   cls()
 
-  particool:draw()
+  psystem:draw()
 	-- Draw the particle system at the center of the game window.
 	--love.graphics.draw(psystem, 50, 50)
 	--love.graphics.draw(psystem, love.graphics.getWidth() * 0.5, love.graphics.getHeight() * 0.5)
 end
 
 function love.update(dt)
-	particool:update(dt)
+	psystem:update(dt)
 end

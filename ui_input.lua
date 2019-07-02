@@ -21,8 +21,8 @@ ui.button("Boom!", {onClick=function()
 end})
 
 -- Position
-xpos = ui.slider("XPos", xpos or GAME_WIDTH/2, 0, GAME_WIDTH, { onChange=initParticool })
-ypos = ui.slider("YPos", ypos or GAME_HEIGHT/2, 0, GAME_HEIGHT, { onChange=initParticool })
+psystem.xpos = ui.slider("XPos", psystem.xpos or GAME_WIDTH/2, 0, GAME_WIDTH, { } )
+psystem.ypos = ui.slider("YPos", psystem.ypos or GAME_HEIGHT/2, 0, GAME_HEIGHT, { } )
 
 -- TODO: When we have an "indexed" colour picker...
 -- ui.section("Particle Colours", function()

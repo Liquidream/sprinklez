@@ -8,25 +8,31 @@
 --  https://github.com/morgan3d/misc/tree/master/p8particle)
 
 
-particool = {}
+Particool = {}
+Particool.__index = Particool
 
 -- local particles={}
 -- local game_width
 -- local game_height
 
-function particool:createSystem(_width,_height, _x, _y, _cols, _count)
-    self.particles = {}
+function Particool:createSystem(_width,_height, _x, _y, _cols, _count)
+    local part = {}             -- our new object
+    setmetatable(part,Particool)  -- make Account handle lookup
 
-    self.game_width = _width
-    self.game_height = _height
+    part.particles = {}
 
-    self.xpos = _x or self.game_width/2
-    self.ypos = _y or self.game_height/2
-    self.cols = _cols
-    self.count = _count or 1    -- emitter count
+    part.game_width = _width
+    part.game_height = _height
+
+    part.xpos = _x or part.game_width/2
+    part.ypos = _y or part.game_height/2
+    part.cols = _cols
+    part.count = _count or 1    -- emitter count
+
+    return part
 end
 
-function particool:spawn(_x, _y)
+function Particool:spawn(_x, _y)
     -- create a new particle
     local new={}
     
@@ -54,7 +60,7 @@ function particool:spawn(_x, _y)
    end
    
    
-function particool:update(dt)
+function Particool:update(dt)
     --update all particles
     for index, p in ipairs(self.particles) do
         --delete old particles
@@ -83,7 +89,7 @@ function particool:update(dt)
     end
 end
    
-function particool:draw()
+function Particool:draw()
     --iterate trough all particles
     local col
     for index, p in ipairs(self.particles) do
