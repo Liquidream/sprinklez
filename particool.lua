@@ -1,6 +1,6 @@
 
+-- Particool Library
 
--- Particles code
 -- (based on Krystman's Fireworks Tutorial:
 --  https://www.lexaloffle.com/bbs/?tid=28260
 --  and also
@@ -11,23 +11,30 @@
 Particool = {}
 Particool.__index = Particool
 
--- local particles={}
--- local game_width
--- local game_height
 
-function Particool:createSystem(_width,_height, _x, _y, _cols, _count)
-    local part = {}             -- our new object
-    setmetatable(part,Particool)  -- make Account handle lookup
+function Particool:createSystem(_x, _y) -- _cols, _count)
+    local part = {}               -- our new object
+    setmetatable(part,Particool)  -- make Particool handle lookup
 
     part.particles = {}
 
-    part.game_width = _width
-    part.game_height = _height
+    part.game_width = screen_w()    -- default max bounds as same as sugarcoat resolution
+    part.game_height = screen_h()   --
 
     part.xpos = _x or part.game_width/2
     part.ypos = _y or part.game_height/2
-    part.cols = _cols
+    part.cols = _cols or {1,2,3}
     part.count = _count or 1    -- emitter count
+
+    part.spread = 2*math.pi     -- how wide the angle can be
+
+    -- linear acceleration
+    -- https://love2d.org/wiki/ParticleSystem:setLinearAcceleration
+    part.xmin = -20
+    part.ymin = -20
+    part.xmax = 20
+    part.ymax = 20
+
 
     return part
 end
@@ -38,7 +45,8 @@ function Particool:spawn(_x, _y)
     
     -- generate a random angle
     -- and speed
-    local angle = love.math.random() * (2*math.pi)    -- rnd()
+    --local angle = love.math.random() * (2*math.pi)
+    local angle = love.math.random() * (self.spread)
     local speed = 50+love.math.random()*150 -- rnd(2)
     
     new.x=_x --set start position

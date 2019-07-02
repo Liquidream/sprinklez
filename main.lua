@@ -84,7 +84,7 @@ end
 
 
 function initParticool()
-  psystem = Particool:createSystem(GAME_WIDTH, GAME_HEIGHT, xpos,ypos, {1,2,3}, 10)
+  psystem = Particool:createSystem(xpos,ypos, {1,2,3}, 10)
 end
  
 function love.draw()
