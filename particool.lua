@@ -23,8 +23,8 @@ function Particool:createSystem(_x, _y) -- _cols, _count)
 
     part.xpos = _x or part.game_width/2
     part.ypos = _y or part.game_height/2
-    part.cols = _cols or {1,2,3}
-    part.count = _count or 1    -- emitter count
+    part.cols = _cols or {1,2,3,4}
+    part.rate = _count or 10   -- emission rate (# spawn per frame)
 
     part.spread = 2*math.pi     -- how wide the angle can be
 
@@ -92,7 +92,7 @@ function Particool:update(dt)
     end
 
     -- create new ones
-    for i = 1, self.count do
+    for i = 1, self.rate do
         self:spawn(self.xpos, self.ypos)
     end
 end

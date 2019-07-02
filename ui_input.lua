@@ -25,7 +25,7 @@ psystem.xpos = ui.slider("XPos", psystem.xpos or GAME_WIDTH/2, 0, GAME_WIDTH, { 
 psystem.ypos = ui.slider("YPos", psystem.ypos or GAME_HEIGHT/2, 0, GAME_HEIGHT, { } )
 
 psystem.spread = ui.slider("Spread", psystem.spread*100, 0, 628, { } )/100
-psystem.count = ui.slider("Emission", psystem.count, 1, 100, { } )
+psystem.rate = ui.slider("Emission", psystem.rate, 1, 100, { } )
 
 -- TODO: When we have an "indexed" colour picker...
 -- ui.section("Particle Colours", function()
