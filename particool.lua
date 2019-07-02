@@ -7,11 +7,15 @@
 --  Morgan McGuire's p8particle library:
 --  https://github.com/morgan3d/misc/tree/master/p8particle)
 
-local particles={}
-local game_width
-local game_height
 
-local function init(self, _width,_height, _x, _y, _cols, _count)
+particool = {}
+
+-- local particles={}
+-- local game_width
+-- local game_height
+
+function particool:createSystem(_width,_height, _x, _y, _cols, _count)
+    self.particles = {}
 
     self.game_width = _width
     self.game_height = _height
@@ -22,7 +26,7 @@ local function init(self, _width,_height, _x, _y, _cols, _count)
     self.count = _count or 1    -- emitter count
 end
 
-local function spawn(self, _x, _y)
+function particool:spawn(_x, _y)
     -- create a new particle
     local new={}
     
@@ -50,7 +54,7 @@ local function spawn(self, _x, _y)
    end
    
    
-function update(self, dt)
+function particool:update(dt)
     --update all particles
     for index, p in ipairs(self.particles) do
         --delete old particles
@@ -62,7 +66,7 @@ function update(self, dt)
         or p.x > self.game_width
         or p.x < 0
         then
-        table.remove(particles,index)
+        table.remove(self.particles, index)
         
         else
         --move particle
@@ -79,7 +83,7 @@ function update(self, dt)
     end
 end
    
-function draw(self)
+function particool:draw()
     --iterate trough all particles
     local col
     for index, p in ipairs(self.particles) do
@@ -95,14 +99,16 @@ function draw(self)
 end
 
 
-return {
-    -- properties
-    particles = particles,
-    --cols = cols,
+-- return {
+--     -- properties
+--     particles = particles,
+--     --cols = cols,
+--     xpos = xpos,
+--     ypos = ypos,
    
-    -- functions
-    init = init,
-    spawn = spawn,
-    update = update,
-    draw = draw,
-   }
+--     -- functions
+--     init = init,
+--     spawn = spawn,
+--     update = update,
+--     draw = draw,
+--    }

@@ -16,7 +16,9 @@ end
 require("ui_input")
 require("sugarcoat/sugarcoat")
 sugar.utility.using_package(sugar.S, true)
-psystem = require 'particool'
+
+require("particool")
+--psystem = require 'particool'
 
 -- CREDITS
 -- https://www.lexaloffle.com/bbs/?tid=28260
@@ -82,18 +84,18 @@ end
 
 
 function initParticool()
-    psystem:init(GAME_WIDTH, GAME_HEIGHT, xpos,ypos, {1,2,3}, 10)
+  particool:createSystem(GAME_WIDTH, GAME_HEIGHT, xpos,ypos, {1,2,3}, 10)
 end
  
 function love.draw()
   cls()
 
-  psystem:draw()
+  particool:draw()
 	-- Draw the particle system at the center of the game window.
 	--love.graphics.draw(psystem, 50, 50)
 	--love.graphics.draw(psystem, love.graphics.getWidth() * 0.5, love.graphics.getHeight() * 0.5)
 end
 
 function love.update(dt)
-	psystem:update(dt)
+	particool:update(dt)
 end
