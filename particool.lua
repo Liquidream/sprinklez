@@ -26,14 +26,19 @@ function Particool:createSystem(_x, _y) -- _cols, _count)
     part.cols = _cols or {1,2,3,4}
     part.rate = _count or 10   -- emission rate (# spawn per frame)
 
+    part.angle = 0
     part.spread = 2*math.pi     -- how wide the angle can be
 
     -- linear acceleration
     -- https://love2d.org/wiki/ParticleSystem:setLinearAcceleration
-    part.xmin = -20
-    part.ymin = -20
-    part.xmax = 20
-    part.ymax = 20
+    part.acc_min = 50
+    part.acc_max = 150
+
+    -- randomness 
+    -- (start pos)
+    part.max_rnd_start = 10
+
+    -- psystem:setSizeVariation
 
 
     return part
@@ -46,15 +51,16 @@ function Particool:spawn(_x, _y)
     -- generate a random angle
     -- and speed
     --local angle = love.math.random() * (2*math.pi)
-    local angle = love.math.random() * (self.spread)
-    local speed = 50+love.math.random()*150 -- rnd(2)
+    local final_angle = self.angle + love.math.random() * (self.spread)
+    local speed = self.acc_min+love.math.random()*self.acc_max -- rnd(2)
     
-    new.x=_x --set start position
-    new.y=_y --set start position
+    --set start position
+    new.x=_x + love.math.random()*self.max_rnd_start
+    new.y=_y + love.math.random()*self.max_rnd_start
     -- set velocity based on
     -- speed and angle
-    new.dx=math.sin(angle)*speed
-    new.dy=math.cos(angle)*speed
+    new.dx=math.sin(final_angle)*speed 
+    new.dy=math.cos(final_angle)*speed
     
     --add a random starting age
     --to add more variety
