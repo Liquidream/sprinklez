@@ -102,7 +102,8 @@ function initParticool()
 end
  
 function love.draw()
-  cls(21)
+  cls()
+  --cls(21)
 
   psystem:draw()
 	-- Draw the particle system at the center of the game window.
@@ -112,7 +113,7 @@ function love.draw()
   -- ###########################################################################
   -- Rémy - without this line, the particles will often "flicker" black
   -- 
-  --print("TEST!!",10,10,46)
+  print("Sprinklez Demo Tool",10,10,0)
   -- ###########################################################################
 end
 
