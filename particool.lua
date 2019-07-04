@@ -106,7 +106,7 @@ function Particool:update(dt)
         
         --add gravity
         if self.fake_bounce then
-            p.dy = p.dy + sin(self._lifecount/20)*100
+            p.y = p.y + math.abs(sin(self._lifecount/50))*200 * dt
         else
             p.dy = p.dy + self.gravity
         end
