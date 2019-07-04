@@ -89,6 +89,13 @@ function initParticool()
   -- add in defaults for demo
   psystem.angle = 2.5
   psystem.spread = 1.5
+  
+  -- ###########################################################################
+  -- >> Temp settings to higlight "black" draw issue to Rémy
+  --
+  psystem.lifetime = 1  -- force emitter to be "burst"
+  psystem.gravity = 2
+  -- ###########################################################################
 
   -- todo: loading of data from "posts"
 
@@ -100,9 +107,13 @@ function love.draw()
   psystem:draw()
 	-- Draw the particle system at the center of the game window.
 	--love.graphics.draw(psystem, 50, 50)
-  --love.graphics.draw(psystem, love.graphics.getWidth() * 0.5, love.graphics.getHeight() * 0.5)
+  --love.graphics.draw(psystem, love.graphics.getWidth() * 0.5, love.graphics.getHeight() * 0.5)  
   
+  -- ###########################################################################
+  -- Rémy - without this line, the particles will often "flicker" black
+  -- 
   print("TEST!!",10,10,46)
+  -- ###########################################################################
 end
 
 function love.update(dt)
