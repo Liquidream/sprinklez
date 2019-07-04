@@ -85,6 +85,13 @@ end
 
 function initParticool()
   psystem = Particool:createSystem(xpos,ypos, {1,2,3}, 10)
+
+  -- add in defaults for demo
+  psystem.angle = 2.5
+  psystem.spread = 1.5
+
+  -- todo: loading of data from "posts"
+
 end
  
 function love.draw()
@@ -97,5 +104,11 @@ function love.draw()
 end
 
 function love.update(dt)
-	psystem:update(dt)
+  psystem:update(dt)
+  
+  -- for demo purposes ONLY, 
+  -- reset emitter lifetime so we can test effect again and again!
+  if psystem._lifecount > psystem.lifetime + 100 then
+    psystem._lifecount = 0
+  end
 end

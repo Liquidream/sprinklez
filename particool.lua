@@ -13,35 +13,44 @@ Particool.__index = Particool
 
 
 function Particool:createSystem(_x, _y) -- _cols, _count)
-    local part = {}               -- our new object
-    setmetatable(part,Particool)  -- make Particool handle lookup
+    local emitter = {}               -- our new object
+    setmetatable(emitter,Particool)  -- make Particool handle lookup
 
-    part.particles = {}
+    emitter.particles = {}
 
-    part.game_width = screen_w()    -- default max bounds as same as sugarcoat resolution
-    part.game_height = screen_h()   --
+    emitter.game_width = screen_w()    -- default max bounds as same as sugarcoat resolution
+    emitter.game_height = screen_h()   --
 
-    part.xpos = _x or part.game_width/2
-    part.ypos = _y or part.game_height/2
-    part.cols = _cols or {1,2,3,4}
-    part.rate = _count or 10   -- emission rate (# spawn per frame)
+    emitter.xpos = _x or emitter.game_width/2
+    emitter.ypos = _y or emitter.game_height/2
+    emitter.cols = _cols or {1,2,3,4}
+    emitter.rate = _count or 10   -- emission rate (# spawn per frame)
 
-    part.angle = 0
-    part.spread = 2*math.pi     -- how wide the angle can be
+    emitter.angle = 0
+    emitter.spread = 2*math.pi     -- how wide the angle can be
 
     -- linear acceleration
     -- https://love2d.org/wiki/ParticleSystem:setLinearAcceleration
-    part.acc_min = 50
-    part.acc_max = 150
+    emitter.acc_min = 50
+    emitter.acc_max = 150
 
     -- randomness 
     -- (start pos)
-    part.max_rnd_start = 10
+    emitter.max_rnd_start = 10
+
+    -- gravity (or fake bounce)
+    emitter.gravity = 9.8
+
+    -- How long to emit for (-1 forever)
+    emitter.lifetime = -1
+    emitter._lifecount = 0
+
+
 
     -- psystem:setSizeVariation
 
 
-    return part
+    return emitter
 end
 
 function Particool:spawn(_x, _y)
@@ -92,15 +101,26 @@ function Particool:update(dt)
         --move particle
         p.x=p.x+p.dx * dt
         p.y=p.y+p.dy * dt
+        --add gravity
+        p.dy=p.dy+self.gravity
         --age particle
         p.age=p.age+1
         end
     end
 
-    -- create new ones
-    for i = 1, self.rate do
-        self:spawn(self.xpos, self.ypos)
+    -- create new particles 
+    -- (if emitter still alive)
+    if self.lifetime <0 
+     or (self._lifecount < self.lifetime) then
+        for i = 1, self.rate do
+            self:spawn(self.xpos, self.ypos)
+        end
     end
+
+    -- update emitter life (if applicable)
+    if self.lifetime >= 0 then
+        self._lifecount = self._lifecount + 1
+    end 
 end
    
 function Particool:draw()

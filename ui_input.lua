@@ -5,7 +5,7 @@ local ui = castle.ui
 function castle.uiupdate()
 
     ui.markdown([[
-## Particool
+## Sprinklez
 A test app for particle fx
 ]])
 
@@ -26,11 +26,12 @@ psystem.ypos = ui.slider("YPos", psystem.ypos or GAME_HEIGHT/2, 0, GAME_HEIGHT, 
 
 psystem.angle = ui.slider("Angle", psystem.angle*10, 0, 62.8, { } )/10
 psystem.spread = ui.slider("Spread", psystem.spread*10, 0, 62.8, { } )/10
-psystem.rate = ui.slider("Emission", psystem.rate, 1, 100, { } )
+psystem.lifetime = ui.slider("Lifetime", psystem.lifetime, -1, 10, { } )
+psystem.rate = ui.slider("Rate", psystem.rate, 1, 100, { } )
 psystem.acc_min = ui.slider("Min Acc", psystem.acc_min, 0, 100, { } )
 psystem.acc_max = ui.slider("Max Acc", psystem.acc_max, 0, 1000, { } )
 psystem.max_rnd_start = ui.slider("Rnd Jitter", psystem.max_rnd_start, 0, 100, { } )
-
+psystem.gravity = ui.numberInput("Gravity", psystem.gravity, { min=0 } )
 
 -- TODO: When we have an "indexed" colour picker...
 -- ui.section("Particle Colours", function()
