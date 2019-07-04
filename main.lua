@@ -95,12 +95,14 @@ function initParticool()
 end
  
 function love.draw()
-  cls()
+  cls(21)
 
   psystem:draw()
 	-- Draw the particle system at the center of the game window.
 	--love.graphics.draw(psystem, 50, 50)
-	--love.graphics.draw(psystem, love.graphics.getWidth() * 0.5, love.graphics.getHeight() * 0.5)
+  --love.graphics.draw(psystem, love.graphics.getWidth() * 0.5, love.graphics.getHeight() * 0.5)
+  
+  print("TEST!!",10,10,46)
 end
 
 function love.update(dt)
@@ -111,4 +113,6 @@ function love.update(dt)
   if psystem._lifecount > psystem.lifetime + 100 then
     psystem._lifecount = 0
   end
+
+  --log(psystem.particles[1].age)
 end

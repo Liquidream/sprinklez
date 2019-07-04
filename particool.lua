@@ -41,7 +41,7 @@ function Particool:createSystem(_x, _y) -- _cols, _count)
     -- gravity
     emitter.gravity = 9.8
     -- fake 2D "bounce"? (overrides normal gravity behaviour)
-    emitter.fake_bounce = true
+    emitter.fake_bounce = true    
 
     -- How long to emit for (-1 forever)
     emitter.lifetime = -1
@@ -79,6 +79,9 @@ function Particool:spawn(_x, _y)
      
     -- give each particle it's own color life
     new.cols = self.cols
+
+    -- fake bounce
+    new._by = 0
     
     --add the particle to the list
     table.insert(self.particles, new)
@@ -105,11 +108,13 @@ function Particool:update(dt)
         p.y = p.y + p.dy * dt
         
         --add gravity
-        if self.fake_bounce then
-            p.y = p.y + math.abs(sin(self._lifecount/50))*200 * dt
-        else
-            p.dy = p.dy + self.gravity
-        end
+        p.dy = p.dy + self.gravity
+
+        -- if self.fake_bounce then
+        --     p._by = p.y + math.abs(sin(self._lifecount/50))*300 * dt
+        -- else
+        --     p.y = p.y + p.dy * dt
+        --end
         
         
         --age particle
@@ -142,6 +147,9 @@ function Particool:draw()
      elseif p.age > 20 then col=p.cols[2]  
      else col=p.cols[1]--7 
      end
+
+     --col=p.cols[1]
+
      --actually draw particle
      pset(p.x, p.y, col)
     end
