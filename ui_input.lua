@@ -40,6 +40,9 @@ psystem.gravity = ui.numberInput("Gravity", psystem.gravity, { min=0 } )
 --     newR, newG, newB, newA = ui.colorPicker("", 0, 1, 1, 1, {})
 
 -- end)
+--
+-- ALSO, BG colour! 😉
+--
 
 
 end

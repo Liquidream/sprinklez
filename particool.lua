@@ -38,8 +38,10 @@ function Particool:createSystem(_x, _y) -- _cols, _count)
     -- (start pos)
     emitter.max_rnd_start = 10
 
-    -- gravity (or fake bounce)
+    -- gravity
     emitter.gravity = 9.8
+    -- fake 2D "bounce"? (overrides normal gravity behaviour)
+    emitter.fake_bounce = true
 
     -- How long to emit for (-1 forever)
     emitter.lifetime = -1
@@ -99,10 +101,17 @@ function Particool:update(dt)
         
         else
         --move particle
-        p.x=p.x+p.dx * dt
-        p.y=p.y+p.dy * dt
+        p.x = p.x + p.dx * dt
+        p.y = p.y + p.dy * dt
+        
         --add gravity
-        p.dy=p.dy+self.gravity
+        if self.fake_bounce then
+            p.dy = p.dy + sin(self._lifecount/20)*100
+        else
+            p.dy = p.dy + self.gravity
+        end
+        
+        
         --age particle
         p.age=p.age+1
         end
@@ -118,9 +127,9 @@ function Particool:update(dt)
     end
 
     -- update emitter life (if applicable)
-    if self.lifetime >= 0 then
+    --if self.lifetime >= 0 then
         self._lifecount = self._lifecount + 1
-    end 
+    --end 
 end
    
 function Particool:draw()
