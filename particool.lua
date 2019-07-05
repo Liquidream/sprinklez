@@ -83,7 +83,8 @@ function Particool:spawn(_x, _y)
 
     -- fake bounce
     new._by = new.y      -- bounce Y position
-    new._bdy = -math.abs(new.dy)    -- bounce Y acceleration (gravity-affected)
+    new._bdy = -math.abs(new.dy/30)    -- bounce Y acceleration (gravity-affected)
+    --new._bdy = -4 ---math.abs(new.dy)    -- bounce Y acceleration (gravity-affected)
     
     --add the particle to the list
     table.insert(self.particles, new)
@@ -110,23 +111,20 @@ function Particool:update(dt)
         p.y = p.y + p.dy * dt
         
         if self.fake_bounce then
-            p._by = p._by + p._bdy * dt
+            p._by = p._by + p._bdy
             --add "bounce" gravity
-            p._bdy = p._bdy + self.gravity
+            p._bdy = p._bdy + 0.25--(self.gravity/12)
+            --p._bdy = p._bdy + (8.2/math.abs(p.dy/2)) --+ self.gravity
             -- check for bounce
             if p._by > p.y then
+                --log("p._by (".. p._by..") > p.y ("..p.y..")")
                 -- new bounce
-                p._bdy = (p._bdy*-1) *0.5
+               p._bdy = (p._bdy*-1) *0.5
             end
         else
             --add normal gravity
             p.dy = p.dy + self.gravity
-        end
-        --     p._by = p.y + math.abs(sin(self._lifecount/50))*300 * dt
-        -- else
-        --     p.y = p.y + p.dy * dt
-        --end
-        
+        end        
         
         --age particle
         p.age=p.age+1
