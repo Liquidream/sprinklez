@@ -112,7 +112,7 @@ function love.update(dt)
   
   -- for demo purposes ONLY, 
   -- reset emitter lifetime so we can test effect again and again!
-  if psystem._lifecount > psystem.lifetime + 500 then
+  if psystem._lifecount > psystem.lifetime + 100 then
     psystem._lifecount = 0
   end
 

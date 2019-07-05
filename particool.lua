@@ -75,9 +75,6 @@ function Particool:spawn(_x, _y)
     new.dx=math.sin(final_angle)*speed 
     new.dy=math.cos(final_angle)*speed
     
-    -- reduce x movement in bouncing?
-    if self.fake_bounce then new.dx=new.dx/2 end
-
     --add a random starting age
     --to add more variety
     new.age=math.floor(math.random(25))--25
@@ -87,7 +84,8 @@ function Particool:spawn(_x, _y)
 
     -- fake bounce
     new._by = 0      -- bounce Y position
-    new._bdy = -150
+    new._bdy = -mid(100, abs(new.dy), 1000)
+    --new._bdy = -150
     --new._bdy = -math.abs(new.dy/30)  *1  -- bounce Y acceleration (gravity-affected)
     --new._bdy = -4 ---math.abs(new.dy)    -- bounce Y acceleration (gravity-affected)
     
@@ -97,7 +95,10 @@ function Particool:spawn(_x, _y)
    
    
 function Particool:update(dt)
-    dt=dt/5
+    
+    -- debug slow-mo
+    --dt=dt/5
+    
     --update all particles
     for index, p in ipairs(self.particles) do
         --delete old particles
@@ -119,7 +120,7 @@ function Particool:update(dt)
         if self.fake_bounce then
             p._by = p._by + p._bdy * dt
             --add "bounce" gravity
-            p._bdy = p._bdy + 1.25 --(self.gravity/12)
+            p._bdy = p._bdy + self.gravity
             --p._bdy = p._bdy + (8.2/math.abs(p.dy/2)) --+ self.gravity
             -- check for bounce
             if p.y+p._by > p.y then
@@ -134,7 +135,7 @@ function Particool:update(dt)
         end        
         
         --age particle
-        p.age=p.age+.1
+        p.age=p.age+1
         end
     end
 
