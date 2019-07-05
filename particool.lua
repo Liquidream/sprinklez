@@ -40,8 +40,9 @@ function Particool:createSystem(_x, _y) -- _cols, _count)
 
     -- gravity
     emitter.gravity = 9.8
+    
     -- fake 2D "bounce"? (overrides normal gravity behaviour)
-    emitter.fake_bounce = true    
+    emitter.fake_bounce = false
 
     -- How long to emit for (-1 forever)
     emitter.lifetime = -1
@@ -81,7 +82,8 @@ function Particool:spawn(_x, _y)
     new.cols = self.cols
 
     -- fake bounce
-    new._by = 0
+    new._by = new.y      -- bounce Y position
+    new._bdy = -math.abs(new.dy)    -- bounce Y acceleration (gravity-affected)
     
     --add the particle to the list
     table.insert(self.particles, new)
@@ -107,10 +109,19 @@ function Particool:update(dt)
         p.x = p.x + p.dx * dt
         p.y = p.y + p.dy * dt
         
-        --add gravity
-        p.dy = p.dy + self.gravity
-
-        -- if self.fake_bounce then
+        if self.fake_bounce then
+            p._by = p._by + p._bdy * dt
+            --add "bounce" gravity
+            p._bdy = p._bdy + self.gravity
+            -- check for bounce
+            if p._by > p.y then
+                -- new bounce
+                p._bdy = (p._bdy*-1) *0.5
+            end
+        else
+            --add normal gravity
+            p.dy = p.dy + self.gravity
+        end
         --     p._by = p.y + math.abs(sin(self._lifecount/50))*300 * dt
         -- else
         --     p.y = p.y + p.dy * dt
@@ -148,10 +159,13 @@ function Particool:draw()
      else col=p.cols[1]--7 
      end
 
-     --col=p.cols[1]
+     local ypos = p.y
+     if self.fake_bounce then
+        ypos = p._by
+     end
 
      --actually draw particle
-     pset(p.x, p.y, col)
+     pset(p.x, ypos, col)
     end
 end
 

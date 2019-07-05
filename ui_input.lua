@@ -32,6 +32,8 @@ psystem.acc_min = ui.slider("Min Acc", psystem.acc_min, 0, 100, { } )
 psystem.acc_max = ui.slider("Max Acc", psystem.acc_max, 0, 1000, { } )
 psystem.max_rnd_start = ui.slider("Rnd Jitter", psystem.max_rnd_start, 0, 100, { } )
 psystem.gravity = ui.numberInput("Gravity", psystem.gravity, { min=0 } )
+psystem.fake_bounce = ui.checkbox("Fake 2D Bounce", psystem.fake_bounce, { } )
+
 
 -- TODO: When we have an "indexed" colour picker...
 -- ui.section("Particle Colours", function()
