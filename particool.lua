@@ -48,7 +48,8 @@ function Particool:createSystem(_x, _y) -- _cols, _count)
     emitter.lifetime = -1
     emitter._lifecount = 0
 
-
+    -- debug mode
+    emitter.debug = false
 
     -- psystem:setSizeVariation
 
@@ -158,13 +159,17 @@ function Particool:draw()
      else col=p.cols[1]--7 
      end
 
-     local ypos = p.y
+
+     -- draw main particle          
+     -- (normal col, or in debug col if in "fake bounce" mode)
+     if (not  self.fake_bounce) or self.debug then 
+        pset(p.x, p.y, (self.debug and 38 or col))
+     end
+     -- draw "fake bounce" particle
      if self.fake_bounce then
-        ypos = p._by
+        pset(p.x, p._by, col)
      end
 
-     --actually draw particle
-     pset(p.x, ypos, col)
     end
 end
 

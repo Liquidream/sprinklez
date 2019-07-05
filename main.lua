@@ -92,6 +92,7 @@ function initParticool()
   
   psystem.lifetime = 1  -- force emitter to be "burst"
   psystem.fake_bounce = true
+  psystem.debug = true
   --psystem.gravity = 2
   
   -- todo: loading of data from "posts"
