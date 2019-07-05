@@ -83,7 +83,7 @@ function Particool:spawn(_x, _y)
 
     -- fake bounce
     new._by = new.y      -- bounce Y position
-    new._bdy = -math.abs(new.dy/30)    -- bounce Y acceleration (gravity-affected)
+    new._bdy = -math.abs(new.dy/30)  *2  -- bounce Y acceleration (gravity-affected)
     --new._bdy = -4 ---math.abs(new.dy)    -- bounce Y acceleration (gravity-affected)
     
     --add the particle to the list
@@ -119,7 +119,8 @@ function Particool:update(dt)
             if p._by > p.y then
                 --log("p._by (".. p._by..") > p.y ("..p.y..")")
                 -- new bounce
-               p._bdy = (p._bdy*-1) *0.5
+                --log(p._bdy)
+               p._bdy = (p._bdy*-0.75)
             end
         else
             --add normal gravity
