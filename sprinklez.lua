@@ -1,5 +1,5 @@
 
--- Particool Library
+-- Sprinklez Particle Library, for Sugarcoat
 
 -- (based on Krystman's Fireworks Tutorial:
 --  https://www.lexaloffle.com/bbs/?tid=28260
@@ -51,7 +51,7 @@ function Particool:createSystem(_x, _y) -- _cols, _count)
     -- debug mode
     emitter.debug = false
 
-    -- psystem:setSizeVariation
+    -- TODO: setSizeVariation?
 
 
     return emitter
@@ -62,14 +62,14 @@ function Particool:spawn(_x, _y)
     local new={}
     
     -- generate a random angle
-    -- and speed
-    --local angle = love.math.random() * (2*math.pi)
     local final_angle = self.angle + love.math.random() * (self.spread)
+    -- and speed
     local speed = self.acc_min+love.math.random()*self.acc_max -- rnd(2)
     
     --set start position
     new.x=_x + love.math.random()*self.max_rnd_start
     new.y=_y + love.math.random()*self.max_rnd_start
+    
     -- set velocity based on
     -- speed and angle
     new.dx=math.sin(final_angle)*speed 
@@ -85,9 +85,6 @@ function Particool:spawn(_x, _y)
     -- fake bounce
     new._by = 0      -- bounce Y position
     new._bdy = -mid(100, abs(new.dy), 1000)
-    --new._bdy = -150
-    --new._bdy = -math.abs(new.dy/30)  *1  -- bounce Y acceleration (gravity-affected)
-    --new._bdy = -4 ---math.abs(new.dy)    -- bounce Y acceleration (gravity-affected)
     
     --add the particle to the list
     table.insert(self.particles, new)
@@ -121,12 +118,9 @@ function Particool:update(dt)
             p._by = p._by + p._bdy * dt
             --add "bounce" gravity
             p._bdy = p._bdy + self.gravity
-            --p._bdy = p._bdy + (8.2/math.abs(p.dy/2)) --+ self.gravity
             -- check for bounce
             if p.y+p._by > p.y then
-                --log("p._by (".. p._by..") > p.y ("..p.y..")")
                 -- new bounce
-                --log(p._bdy)
                p._bdy = (p._bdy*-0.75)
             end
         else
@@ -148,10 +142,8 @@ function Particool:update(dt)
         end
     end
 
-    -- update emitter life (if applicable)
-    --if self.lifetime >= 0 then
-        self._lifecount = self._lifecount + 1
-    --end 
+    -- update emitter life
+    self._lifecount = self._lifecount + 1
 end
    
 function Particool:draw()
@@ -178,18 +170,3 @@ function Particool:draw()
 
     end
 end
-
-
--- return {
---     -- properties
---     particles = particles,
---     --cols = cols,
---     xpos = xpos,
---     ypos = ypos,
-   
---     -- functions
---     init = init,
---     spawn = spawn,
---     update = update,
---     draw = draw,
---    }

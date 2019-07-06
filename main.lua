@@ -1,14 +1,18 @@
--- Welcome to your new Castle project!
--- https://castle.games/get-started
--- Castle uses Love2D 11.1 for rendering and input: https://love2d.org/
--- See here for some useful Love2D documentation:
--- https://love2d-community.github.io/love-api/
+-- SPRINKLEZ Demo + Editor tool
+
+
+-- CREDITS
+-- https://www.lexaloffle.com/bbs/?tid=28260
+-- https://github.com/morgan3d/misc/tree/master/p8particle
+-- https://kenney.nl/assets/particle-pack
+
 
 if CASTLE_PREFETCH then
   CASTLE_PREFETCH({    
     --'assets/level-1-bg.png',
     'sugarcoat/sugarcoat.lua',    
     'ui_input.lua',
+    'sprinklez.lua'
   })
 end
 
@@ -17,13 +21,8 @@ require("ui_input")
 require("sugarcoat/sugarcoat")
 sugar.utility.using_package(sugar.S, true)
 
-require("particool")
---psystem = require 'particool'
+require("sprinklez")
 
--- CREDITS
--- https://www.lexaloffle.com/bbs/?tid=28260
--- https://github.com/morgan3d/misc/tree/master/p8particle
--- https://kenney.nl/assets/particle-pack
 
 -- -------------------------------------------------------------
 -- CONSTANTS
@@ -53,6 +52,8 @@ ak54 = {
     0xea7924, 0xa15e30,
 }
 
+-- all particle systems
+local systems = {}
 
 
 function love.load()
@@ -71,30 +72,22 @@ function love.load()
         load_png("starticle", "assets/star-small.png", nil, true)
     end)
 
-	--local img = love.graphics.newImage('assets/star-small.png') 
-	-- psystem = love.graphics.newParticleSystem(img, 32)
-	-- psystem:setParticleLifetime(2, 5) -- Particles live at least 2s and at most 5s.
-	-- psystem:setEmissionRate(5)
-	-- psystem:setSizeVariation(1)
-	-- psystem:setLinearAcceleration(-20, -20, 20, 20) -- Random movement in all directions.
-	-- psystem:setColors(1, 1, 1, 1, 1, 1, 1, 0) -- Fade to transparency.
 
 	log("Demo initialized.")
 end
 
 
 function initParticool()
-  psystem = Particool:createSystem(xpos,ypos, {1,2,3}, 10)
-
+  -- create a new particle system
+  psystem = Particool:createSystem(xpos,ypos)
   -- add in defaults for demo
   psystem.angle = 2.5
-  --psystem.spread = 1.5
+  table.insert(systems, psystem)
   
-  --psystem.lifetime = 1  -- force emitter to be "burst"
-  --psystem.fake_bounce = true
-  --psystem.debug = true
-  --psystem.gravity = 2
-  
+  -- create a 2nd particle system
+  -- psystem2 = Particool:createSystem(100,100)
+  -- table.insert(systems, psystem2)
+
   -- todo: loading of data from "posts"
 
 end
@@ -103,12 +96,17 @@ function love.draw()
   cls()
   --cls(21)
 
-  psystem:draw()
-  --print("Sprinklez Demo Tool",10,10,0)
+  -- Draw all particle systems
+  for index, psys in ipairs(systems) do
+    psys:draw()
+  end
 end
 
 function love.update(dt)
-  psystem:update(dt)
+  -- Update all particle systems
+  for index, psys in ipairs(systems) do
+    psys:update(dt)
+  end
   
   -- for demo purposes ONLY, 
   -- reset emitter lifetime so we can test effect again and again!
