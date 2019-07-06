@@ -1,5 +1,5 @@
 main: main.lua
-title: Sprinklez Demo Tool
+title: Sprinklez Demo + Editor Tool
 owner: liquidream
 description: A demo tool for the Sprinklez particle library for Sugarcoat
 coverImage: cover-image.png
