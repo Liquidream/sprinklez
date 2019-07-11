@@ -79,6 +79,7 @@ end
 function castle.postopened(post)
   -- restore the post data
   log("in castle.postopened(post)...")
+  log("post.data.xpos = "..post.data.xpos)
   psystem = Sprinklez:createSystem(post.data.xpos, post.data.ypos, post.data)
   --psystem.setData(post.data)
 end
