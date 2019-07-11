@@ -57,6 +57,7 @@ local systems = {}
 
 
 function love.load()
+  log("love.load()...")
 	-- init sugarcoat library
 	init_sugar("Particool Demo", GAME_WIDTH, GAME_HEIGHT, GAME_SCALE)
 	screen_render_stretch(false)
@@ -66,11 +67,11 @@ function love.load()
 
 	initParticool()
 
-	network.async(function()
-        -- load drawing data
-        log("loading asset images...")
-        load_png("starticle", "assets/star-small.png", nil, true)
-    end)
+	-- network.async(function()
+  --       -- load drawing data
+  --       log("loading asset images...")
+  --       load_png("starticle", "assets/star-small.png", nil, true)
+  --   end)
 
 
 	log("Demo initialized.")
