@@ -83,8 +83,7 @@ function castle.postopened(post)
   log("post.data.xpos = "..post.data.xpos)
   log("post.data.ypos = "..post.data.ypos)
   log("post.data.spread = "..post.data.spread)
-  psystem = Sprinklez:createSystem(post.data.xpos, post.data.ypos, post.data)
-  --psystem.setData(post.data)
+  systems[1] = Sprinklez:createSystem(post.data.xpos, post.data.ypos, post.data)
 end
 
 
