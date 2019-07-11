@@ -76,10 +76,16 @@ function love.load()
 	log("Demo initialized.")
 end
 
+function castle.postopened(post)
+  -- restore the post data
+  psystem = Sprinklez:createSystem(post.data.xpos, post.data.ypos, post.data)
+  --psystem.setData(post.data)
+end
+
 
 function initParticool()
   -- create a new particle system
-  psystem = Particool:createSystem(xpos,ypos)
+  psystem = Sprinklez:createSystem(xpos,ypos)
   -- add in defaults for demo
   psystem.angle = 2.5
   table.insert(systems, psystem)
