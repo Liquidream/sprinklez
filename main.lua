@@ -94,18 +94,18 @@ function initSprinklez()
   -- add in defaults for demo
   psystem.angle = 2.5
   
-  -- tweak effect for impact explosion
-  psystem.angle = 0
-  psystem.fake_bounce = true
-  psystem.spread = math.pi
-  psystem.lifetime = 5 -- Only want 1 burst
-  psystem.rate = 20
-  psystem.acc_min = 10
-  psystem.acc_max = 100
-  psystem.max_rnd_start = 5
-  psystem.size_min = 1
-  psystem.size_max = 2
-  psystem.debug = true
+  -- ## Preset effect for impact explosion
+  -- psystem.angle = 0
+  -- psystem.fake_bounce = true
+  -- psystem.spread = math.pi
+  -- psystem.lifetime = 5 -- Only want 1 burst
+  -- psystem.rate = 20
+  -- psystem.acc_min = 10
+  -- psystem.acc_max = 100
+  -- psystem.max_rnd_start = 7 --5
+  -- psystem.size_min = 1
+  -- psystem.size_max = 3 --2
+  -- psystem.debug = true
 
   table.insert(systems, psystem)
   

@@ -91,7 +91,10 @@ function Sprinklez:spawn(_x, _y)
 
     -- fake bounce
     new._by = 0      -- bounce Y position
-    new._bdy = -mid(100, abs(new.dy)+rnd(100), 1000)
+    new._bdy = -mid(100, 
+                    -- based on normal y-speed + linked to jitter value
+                    abs(new.dy)+rnd(20)*self.max_rnd_start, 
+                    1000)
 
     -- size
     new.size = self.size_min + irnd(self.size_max - self.size_min)
@@ -131,7 +134,10 @@ function Sprinklez:update(dt)
             -- check for bounce
             if p.y+p._by > p.y then
                 -- new bounce
-               p._bdy = (p._bdy*-0.75)
+               p._bdy = (p._bdy*(-0.75/max(1,p.size/2))) -- Bigger size bounce less
+               -- slow the dist moved each bounce
+               p.dx = p.dx / 1.5--max(1,p.size/2)
+               p.dy = p.dy / 1.5--max(1,p.size/2)
             end
         else
             --add normal gravity
