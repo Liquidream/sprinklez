@@ -91,7 +91,7 @@ function Sprinklez:spawn(_x, _y)
 
     -- fake bounce
     new._by = 0      -- bounce Y position
-    new._bdy = -mid(100, abs(new.dy), 1000)
+    new._bdy = -mid(100, abs(new.dy)+rnd(100), 1000)
 
     -- size
     new.size = self.size_min + irnd(self.size_max - self.size_min)

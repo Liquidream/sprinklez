@@ -59,13 +59,13 @@ local systems = {}
 function love.load()
   log("love.load()...")
 	-- init sugarcoat library
-	init_sugar("Particool Demo", GAME_WIDTH, GAME_HEIGHT, GAME_SCALE)
+	init_sugar("Sprinklez Demo", GAME_WIDTH, GAME_HEIGHT, GAME_SCALE)
 	screen_render_stretch(false)
 	screen_render_integer_scale(false)
 	set_frame_waiting(60)
 	use_palette(ak54)
 
-	initParticool()
+	initSprinklez()
 
 	-- network.async(function()
   --       -- load drawing data
@@ -87,17 +87,32 @@ function castle.postopened(post)
 end
 
 
-function initParticool()
+function initSprinklez()
   -- create a new particle system
   psystem = Sprinklez:createSystem(xpos,ypos)
+
   -- add in defaults for demo
   psystem.angle = 2.5
+  
+  -- tweak effect for impact explosion
+  psystem.angle = 0
+  psystem.fake_bounce = true
+  psystem.spread = math.pi
+  psystem.lifetime = 5 -- Only want 1 burst
+  psystem.rate = 20
+  psystem.acc_min = 10
+  psystem.acc_max = 100
+  psystem.max_rnd_start = 5
+  psystem.size_min = 1
+  psystem.size_max = 2
+  psystem.debug = true
+
   table.insert(systems, psystem)
   
   -- create a 2nd particle system
-  -- psystem2 = Particool:createSystem(100,100)
+  -- psystem2 = Sprinklez:createSystem(100,100)
   -- table.insert(systems, psystem2)
-
+  
   -- todo: loading of data from "posts"
 
 end
